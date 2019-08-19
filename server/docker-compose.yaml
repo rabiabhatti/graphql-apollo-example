@@ -1,0 +1,7 @@
+db:
+  image: postgres
+  environment:
+    POSTGRES_USER: facebook
+    POSTGRES_PASSWORD:
+  ports:
+    - 35432:5432
