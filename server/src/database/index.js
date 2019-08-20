@@ -22,10 +22,6 @@ Object.keys(models).forEach(key => {
   }
 });
 
-async function syncTables() {
-  database.sync({  force: true })
-}
-
 async function getUserById(id){
   return models.User.findOne({
     where: { id },
@@ -35,6 +31,5 @@ async function getUserById(id){
 export default database
 export {
   models,
-  syncTables,
   getUserById,
 }

@@ -4,7 +4,7 @@ var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     var _this = this;
 
-    var app, compiler;
+    var app;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -14,22 +14,10 @@ var start = function () {
 
           case 2:
             _context2.next = 4;
-            return (0, _database.syncTables)();
+            return _database2.default.sync({ force: true });
 
           case 4:
             app = (0, _express2.default)();
-            compiler = (0, _webpack2.default)({
-              entry: ['whatwg-fetch', _path2.default.resolve(__dirname, '..', '..', 'app', 'app.js')],
-              module: {
-                loaders: [{
-                  exclude: /node_modules/,
-                  loader: 'babel-loader',
-                  test: /\.js$/
-                }]
-              },
-              output: { filename: 'bundle.js', path: __dirname + '/build' },
-              devtool: 'cheap-module-source-map'
-            });
 
 
             app.set('trust proxy', 1);
@@ -70,18 +58,12 @@ var start = function () {
             }()));
 
             app.use('/', _express2.default.static(_path2.default.resolve(__dirname, '..', '..', 'public')));
-            app.use((0, _webpackDevMiddleware2.default)(compiler, {
-              hot: true,
-              publicPath: '/',
-              noInfo: true
-            }));
-            app.use((0, _webpackHotMiddleware2.default)(compiler));
 
             app.listen(SERVER_PORT, function () {
               console.log('GraphQL server is listening on http://localhost:' + SERVER_PORT + '/');
             });
 
-          case 13:
+          case 10:
           case 'end':
             return _context2.stop();
         }
@@ -94,6 +76,10 @@ var start = function () {
   };
 }();
 
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -105,22 +91,6 @@ var _expressGraphql2 = _interopRequireDefault(_expressGraphql);
 var _expressSession = require('express-session');
 
 var _expressSession2 = _interopRequireDefault(_expressSession);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
-
-var _webpack = require('webpack');
-
-var _webpack2 = _interopRequireDefault(_webpack);
-
-var _webpackDevMiddleware = require('webpack-dev-middleware');
-
-var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
-
-var _webpackHotMiddleware = require('webpack-hot-middleware');
-
-var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 
 var _database = require('./database');
 

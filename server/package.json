@@ -29,20 +29,8 @@
     "graphql-sequelize": "^5.4.2",
     "pg": "^7.0.2",
     "pg-hstore": "^2.3.2",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-relay": "^1.2.0-rc.1",
-    "relay-runtime": "^1.1.0",
     "sequelize": "^4.4.2",
-    "sequelize-cli": "^2.8.0",
-    "todomvc-app-css": "^2.1.0",
-    "todomvc-common": "^1.0.3",
-    "webpack": "^3.2.0",
-    "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.5.1",
-    "webpack-hot-middleware": "^2.18.2",
-    "whatwg-fetch": "^2.0.3"
+    "sequelize-cli": "^2.8.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

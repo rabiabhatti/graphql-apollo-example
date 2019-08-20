@@ -11,14 +11,9 @@ var syncTables = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return models.Post.sync({ force: true });
+            database.sync({ force: true });
 
-          case 2:
-            _context.next = 4;
-            return models.User.sync({ force: true });
-
-          case 4:
+          case 1:
           case 'end':
             return _context.stop();
         }
