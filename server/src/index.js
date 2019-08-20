@@ -1,32 +1,25 @@
-import ms from 'ms'
 import path from 'path'
-import session from 'express-session'
 import { GraphQLServer } from 'graphql-yoga'
 
 import {sequelize} from './models'
 import resolvers from './resolvers'
 
+import * as userService from './services/user'
+
 sequelize.sync().catch(console.error)
 
-const context = (req) => ({
-    req: req.request,
-})
+async function getContext({request}) {
+    const authToken = request.headers['x-auth-token']
+    const user = authToken ? await userService.getByAuthToken(authToken) : null
+    console.log('req', user)
+    return {user}
+}
 
 const server = new GraphQLServer({
     typeDefs: path.resolve(__dirname, '../schema.graphql'),
     resolvers,
-    context,
+    context: getContext,
 })
-server.express.use(session({
-    name: 'qid',
-    secret: `some-random-secret-here`,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: ms('1d'),
-    },
-}))
 
 server.start({ port: 9000 }, () => console.log('Server is running on localhost:9000'))
     .catch(err => console.error(err))

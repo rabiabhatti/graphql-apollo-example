@@ -1,8 +1,8 @@
-import models from '../models'
+import {Post} from '../../models'
 
 export default {
     posts(rootValue, args, context) {
-        return models.Post.findAll({
+        return Post.findAll({
             where: {
                 userId: rootValue.id
             }

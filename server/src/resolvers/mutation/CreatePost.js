@@ -1,10 +1,9 @@
-import models from '../../models'
+import { Post } from '../../models'
 
 export default async function createPost(parent, { input: { title, description }}, context) {
-    await models.Post.create({
+    return await Post.create({
         title,
         description,
-        userId: context.req.session.userId
+        userId: context.user.id,
     })
-    return await models.User.findByPk(context.req.session.userId)
 }

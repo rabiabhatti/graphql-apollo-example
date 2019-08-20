@@ -1,11 +1,7 @@
-import Post from './Post'
-import Query from './Query'
-import RootUser from './RootUser'
-import Mutation from './mutation'
+import * as QueryTypes from './Query'
+import Mutation from './Mutation'
 
 export default {
-    Query,
-    Post,
-    RootUser,
+    ...QueryTypes,
     Mutation,
 }

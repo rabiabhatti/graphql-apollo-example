@@ -14,7 +14,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-graphql": "^0.6.6",
-    "express-session": "^1.15.6",
     "graphql": "^0.10.3",
     "graphql-relay": "^0.5.2",
     "graphql-sequelize": "^5.4.2",

@@ -1,6 +1,16 @@
+# Root level Types
+
 type Query {
     viewer: RootUser
 }
+
+type Mutation {
+    login(input: LoginInput!): RootUser!
+    register(input: RegisterInput!): RootUser!
+    createPost(input: CreatePostInput!): Post!
+}
+
+# Query Types
 
 type RootUser {
     id: ID!
@@ -22,6 +32,8 @@ type Post {
     description: String!
 }
 
+# Input types
+
 input LoginInput {
     name: String!
     password: String!
@@ -37,10 +49,3 @@ input CreatePostInput {
     title: String!
     description: String!
 }
-
-type Mutation {
-    login(input: LoginInput!): User!
-    register(input: RegisterInput!): User!
-    createPost(input: CreatePostInput!): User!
-}
-
