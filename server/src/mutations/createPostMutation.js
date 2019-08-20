@@ -3,7 +3,7 @@
 import { GraphQLNonNull, GraphQLBoolean, GraphQLString } from 'graphql'
 
 import User, { ReturnUser } from '../schema/user'
-import { getUserById, models } from '../database'
+import { getUserById, models } from '../models'
 
 export default {
   type: ReturnUser,

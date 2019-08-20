@@ -1,14 +1,19 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _graphql = require('graphql');
+var _graphql = require("graphql");
 
-exports.default = {
+// @flow
+var _default = {
   type: _graphql.GraphQLString,
-  resolve: function resolve(context) {
+
+  resolve(context) {
     return context.session.userId = null;
   }
+
 };
+exports.default = _default;

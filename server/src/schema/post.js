@@ -2,7 +2,7 @@
 
 import { globalIdField } from 'graphql-relay'
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql'
-import { getUserById } from '../database'
+import { getUserById } from '../models'
 
 export default new GraphQLObjectType({
   name: 'Post',

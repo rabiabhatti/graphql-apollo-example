@@ -2,9 +2,11 @@
 
 export default function(sequelize, DataTypes) {
     const Post = sequelize.define('Post', {
-        creator: {
-            type: DataTypes.STRING,
+        id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
+            autoIncrement: true,
+            primaryKey: true
         },
         title: {
             type: DataTypes.STRING,
@@ -14,15 +16,16 @@ export default function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     }, {
         timestamps: true,
     })
     Post.associate = function(models) {
-        Post.User = Post.belongsTo(models.User)
-    }
-    Post.findAll = () => {
-        Post.findAll({
-            include: [Post.User],
+        Post.User = Post.belongsTo(models.User, {
+            foreignKey: 'userId'
         })
     }
     return Post

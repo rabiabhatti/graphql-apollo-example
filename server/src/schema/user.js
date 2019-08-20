@@ -2,7 +2,7 @@
 
 import { globalIdField } from 'graphql-relay'
 import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLList } from 'graphql'
-import { models, getUserById } from '../database'
+import { models, getUserById } from '../models'
 import Post from './post'
 
 const User = new GraphQLObjectType({
@@ -13,9 +13,6 @@ const User = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
     },
     email: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    password: {
       type: new GraphQLNonNull(GraphQLString),
     },
     posts: {

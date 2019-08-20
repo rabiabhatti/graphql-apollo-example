@@ -1,23 +1,21 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _graphql = require('graphql');
+var _graphql = require("graphql");
 
-var _user = require('../schema/user');
+var _user = _interopRequireDefault(require("../schema/user"));
 
-var _user2 = _interopRequireDefault(_user);
-
-var _database = require('../database');
+var _models = require("../models");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-exports.default = {
-  type: _user2.default,
+// @flow
+var _default = {
+  type: _user.default,
   args: {
     name: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
@@ -26,47 +24,23 @@ exports.default = {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
     }
   },
-  resolve: function resolve(context, args) {
-    var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var user;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _database.models.User.findOne({
-                where: {
-                  name: args.name,
-                  password: args.password
-                }
-              });
+  async resolve(context, args) {
+    const user = await _models.models.User.findOne({
+      where: {
+        name: args.name,
+        password: args.password
+      }
+    });
 
-            case 2:
-              user = _context.sent;
+    if (user) {
+      context.session.userId = user.id;
+    } else {
+      throw new Error('Unauthorized');
+    }
 
-              if (!user) {
-                _context.next = 7;
-                break;
-              }
-
-              context.session.userId = user.id;
-              _context.next = 8;
-              break;
-
-            case 7:
-              throw new Error('Unauthorized');
-
-            case 8:
-              return _context.abrupt('return', user);
-
-            case 9:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, _this);
-    }))();
+    return user;
   }
+
 };
+exports.default = _default;

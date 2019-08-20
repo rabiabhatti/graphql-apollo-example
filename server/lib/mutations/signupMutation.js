@@ -1,23 +1,21 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _graphql = require('graphql');
+var _graphql = require("graphql");
 
-var _user = require('../schema/user');
+var _user = _interopRequireDefault(require("../schema/user"));
 
-var _user2 = _interopRequireDefault(_user);
-
-var _database = require('../database');
+var _models = require("../models");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-exports.default = {
-  type: _user2.default,
+// @flow
+var _default = {
+  type: _user.default,
   args: {
     name: {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
@@ -29,49 +27,27 @@ exports.default = {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
     }
   },
-  resolve: function resolve(context, args) {
-    var _this = this;
 
-    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var existedUser, newUser;
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              existedUser = _database.models.User.findOne({
-                where: {
-                  email: args.email,
-                  password: args.password
-                }
-              });
+  async resolve(context, args) {
+    const existedUser = _models.models.User.findOne({
+      where: {
+        email: args.email,
+        password: args.password
+      }
+    });
 
-              if (!existedUser) {
-                _context.next = 5;
-                break;
-              }
-
-              throw new Error("User already exist");
-
-            case 5:
-              _context.next = 7;
-              return _database.models.User.create({
-                name: args.name,
-                email: args.email,
-                password: args.password
-              });
-
-            case 7:
-              newUser = _context.sent;
-
-              context.session.userId = newUser.id;
-              return _context.abrupt('return', newUser);
-
-            case 10:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, _this);
-    }))();
+    if (existedUser) {
+      throw new Error("User already exist");
+    } else {
+      let newUser = await _models.models.User.create({
+        name: args.name,
+        email: args.email,
+        password: args.password
+      });
+      context.session.userId = newUser.id;
+      return newUser;
+    }
   }
+
 };
+exports.default = _default;

@@ -3,7 +3,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 
 import User  from '../schema/user'
-import { models } from '../database'
+import { models } from '../models'
 
 export default {
   type: User,

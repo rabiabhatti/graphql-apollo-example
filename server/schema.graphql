@@ -1,0 +1,23 @@
+type Query {
+    viewer: RootUser
+}
+
+type RootUser {
+    id: ID!
+    name: String!
+    email: String!
+    posts: [Post!]!
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Post {
+    id: ID!
+    author: User!
+    title: String!
+    description: String!
+}
