@@ -10,51 +10,31 @@ const database = new Sequelize('postgres', databaseConfig.user, databaseConfig.p
   dialect: 'postgres',
   logging: process.env.LOG_LEVEL === 'debug',
 })
-const Post = database.define('Post', {
-  creator: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  title: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-})
 
-const User = database.define('User', {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-})
+const models = {
+  User: database.import('./User'),
+  Post: database.import('./Post'),
+};
+
+Object.keys(models).forEach(key => {
+  if ('associate' in models[key]) {
+    models[key].associate(models);
+  }
+});
 
 async function syncTables() {
-  await Post.sync()
-  await User.sync()
+  database.sync({  force: true })
 }
 
-async function getUserById(id: number): Promise<?User> {
-  return User.findOne({
+async function getUserById(id){
+  return models.User.findOne({
     where: { id },
   })
 }
 
 export default database
 export {
-  Post,
-  User,
+  models,
   syncTables,
   getUserById,
 }

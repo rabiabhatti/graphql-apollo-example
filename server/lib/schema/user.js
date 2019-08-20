@@ -21,43 +21,44 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var User = new _graphql.GraphQLObjectType({
   name: 'User',
-  fields: {
-    id: (0, _graphqlRelay.globalIdField)('User'),
-    name: {
-      type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
-    },
-    email: {
-      type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
-    },
-    password: {
-      type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
-    },
-    posts: {
-      type: new _graphql.GraphQLNonNull(new _graphql.GraphQLList(_post2.default)),
-      resolve: function resolve() {
-        var _this = this;
+  fields: function fields() {
+    return {
+      id: (0, _graphqlRelay.globalIdField)('User'),
+      name: {
+        type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
+      },
+      email: {
+        type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
+      },
+      password: {
+        type: new _graphql.GraphQLNonNull(_graphql.GraphQLString)
+      },
+      posts: {
+        type: new _graphql.GraphQLNonNull(new _graphql.GraphQLList(_post2.default)),
+        resolve: function resolve() {
+          var _this = this;
 
-        return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-          return regeneratorRuntime.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  console.log(_database.Post);
-                  _context.next = 3;
-                  return _database.Post.findAll({});
+          return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return _database.models.Post.findAll({});
 
-                case 3:
-                  return _context.abrupt('return', _context.sent);
+                  case 2:
+                    return _context.abrupt('return', _context.sent);
 
-                case 4:
-                case 'end':
-                  return _context.stop();
+                  case 3:
+                  case 'end':
+                    return _context.stop();
+                }
               }
-            }
-          }, _callee, _this);
-        }))();
+            }, _callee, _this);
+          }))();
+        }
       }
-    }
+    };
   }
 });
 

@@ -2,8 +2,8 @@
 
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 
-import { User } from '../schema/user'
-import { User as DBUser } from '../database'
+import User from '../schema/user'
+import { models } from '../database'
 
 export default {
   type: User,
@@ -19,7 +19,7 @@ export default {
     },
   },
   async resolve(context, args) {
-    const existedUser = DBUser.findOne({
+    const existedUser = models.User.findOne({
       where: {
         email: args.email,
         password: args.password,
@@ -28,7 +28,7 @@ export default {
     if (existedUser) {
       throw new Error("User already exist")
     } else {
-      let newUser = await DBUser.create({
+      let newUser = await models.User.create({
         name: args.name,
         email: args.email,
         password: args.password,

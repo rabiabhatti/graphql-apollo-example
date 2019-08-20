@@ -1,12 +1,12 @@
 // @flow
 
 import { globalIdField } from 'graphql-relay'
-import { GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLBoolean } from 'graphql'
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql'
 import { getUserById } from '../database'
 
 export default new GraphQLObjectType({
   name: 'Post',
-  fields() {
+  fields: () => {
     const User = require('./user')
     return {
       id: globalIdField('Post'),

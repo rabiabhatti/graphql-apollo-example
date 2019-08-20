@@ -2,8 +2,8 @@
 
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 
-import { User } from '../schema/user'
-import { User as DBUser } from '../database'
+import User  from '../schema/user'
+import { models } from '../database'
 
 export default {
   type: User,
@@ -16,7 +16,7 @@ export default {
     },
   },
   async resolve(context, args) {
-    const user = await DBUser.findOne({
+    const user = await models.User.findOne({
       where: {
         name: args.name,
         password: args.password,

@@ -43,7 +43,7 @@ async function start() {
 
   app.use('/graphql', expressGraphql(async (req) => {
     return {
-      schema,
+      schema: Schema,
       pretty: true,
       rootValue: {
         userId: req.session.userId || null,

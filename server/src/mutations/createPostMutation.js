@@ -3,7 +3,7 @@
 import { GraphQLNonNull, GraphQLBoolean, GraphQLString } from 'graphql'
 
 import User, { ReturnUser } from '../schema/user'
-import { getUserById, Post as DBPost } from '../database'
+import { getUserById, models } from '../database'
 
 export default {
   type: ReturnUser,
@@ -15,7 +15,7 @@ export default {
       type: new GraphQLNonNull(GraphQLBoolean),
     },
     creator: {
-      type: User,
+      type: GraphQLString,
       async resolve(context) {
           return getUserById(context.session.userId)
       },
@@ -23,7 +23,7 @@ export default {
   },
   async resolve(context, args) {
     if (!context.session.userId) throw new Error('Unauthenticated')
-    await DBPost.create({
+    await models.Post.create({
       title: args.title,
       description: args.description,
       creator: args.creator,

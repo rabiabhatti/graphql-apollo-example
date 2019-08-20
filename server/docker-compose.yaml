@@ -4,4 +4,4 @@ db:
     POSTGRES_USER: facebook
     POSTGRES_PASSWORD:
   ports:
-    - 35432:5432
+    - 35433:5432

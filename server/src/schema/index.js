@@ -1,10 +1,10 @@
 // @flow
 
-import { GraphQLSchema, GraphQLObjectType, GraphQLNonNull, GraphQLList, GraphQLID  } from 'graphql'
+import { GraphQLSchema, GraphQLObjectType } from 'graphql'
 
 import User from './user'
 import Post from './post'
-import { getUserById, Post as DBPost } from '../database'
+import { getUserById } from '../database'
 import createPostMutation from '../mutations/createPostMutation'
 import signupMutation from '../mutations/signupMutation'
 import signinMutation from '../mutations/signinMutation'

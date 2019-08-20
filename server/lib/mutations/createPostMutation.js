@@ -26,7 +26,7 @@ exports.default = {
       type: new _graphql.GraphQLNonNull(_graphql.GraphQLBoolean)
     },
     creator: {
-      type: _user2.default,
+      type: _graphql.GraphQLString,
       resolve: function resolve(context) {
         var _this = this;
 
@@ -64,7 +64,7 @@ exports.default = {
 
             case 2:
               _context2.next = 4;
-              return _database.Post.create({
+              return _database.models.Post.create({
                 title: args.title,
                 description: args.description,
                 creator: args.creator

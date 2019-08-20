@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUserById = exports.syncTables = exports.User = exports.Post = undefined;
+exports.getUserById = exports.syncTables = exports.models = undefined;
 
 var syncTables = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -12,11 +12,11 @@ var syncTables = function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return Post.sync();
+            return models.Post.sync({ force: true });
 
           case 2:
             _context.next = 4;
-            return User.sync();
+            return models.User.sync({ force: true });
 
           case 4:
           case 'end':
@@ -37,7 +37,7 @@ var getUserById = function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt('return', User.findOne({
+            return _context2.abrupt('return', models.User.findOne({
               where: { id: id }
             }));
 
@@ -51,24 +51,6 @@ var getUserById = function () {
 
   return function getUserById(_x) {
     return _ref2.apply(this, arguments);
-  };
-}();
-
-var findAllPosts = function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-          case 'end':
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this);
-  }));
-
-  return function findAllPosts() {
-    return _ref3.apply(this, arguments);
   };
 }();
 
@@ -89,38 +71,19 @@ var database = new _sequelize2.default('postgres', _config.database.user, _confi
   dialect: 'postgres',
   logging: process.env.LOG_LEVEL === 'debug'
 });
-var Post = database.define('Post', {
-  creator: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
-  },
-  title: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
-  },
-  description: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
-  }
-});
 
-var User = database.define('User', {
-  name: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
-  },
-  email: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
-  },
-  password: {
-    type: _sequelize2.default.STRING,
-    allowNull: false
+var models = {
+  User: database.import('./User'),
+  Post: database.import('./Post')
+};
+
+Object.keys(models).forEach(function (key) {
+  if ('associate' in models[key]) {
+    models[key].associate(models);
   }
 });
 
 exports.default = database;
-exports.Post = Post;
-exports.User = User;
+exports.models = models;
 exports.syncTables = syncTables;
 exports.getUserById = getUserById;
