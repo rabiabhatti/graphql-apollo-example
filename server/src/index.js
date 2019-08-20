@@ -11,7 +11,6 @@ sequelize.sync().catch(console.error)
 async function getContext({request}) {
     const authToken = request.headers['x-auth-token']
     const user = authToken ? await userService.getByAuthToken(authToken) : null
-    console.log('req', user)
     return {user}
 }
 
@@ -20,6 +19,5 @@ const server = new GraphQLServer({
     resolvers,
     context: getContext,
 })
-
 server.start({ port: 9000 }, () => console.log('Server is running on localhost:9000'))
     .catch(err => console.error(err))

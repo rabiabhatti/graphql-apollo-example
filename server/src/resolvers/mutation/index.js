@@ -18,4 +18,4 @@ Object.keys(mutations).forEach(key => {
     }
 })
 
-export default mutationsRequiringAuth
+export default mutations
