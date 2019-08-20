@@ -7,7 +7,7 @@ export default async function login(parent, { input: {name, password} }, context
             password,
         },
     })
-    if (!user) throw new Error('User does not exist')
+    if (!user) throw new Error('Email or password are incorrect')
     context.req.session.userId = user.id
     return user
 }

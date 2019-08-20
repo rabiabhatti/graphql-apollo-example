@@ -4,7 +4,7 @@ export default async function createPost(parent, { input: { title, description }
     await models.Post.create({
         title,
         description,
-        userId: 1
+        userId: context.req.session.userId
     })
-    return await models.User.findByPk(1)
+    return await models.User.findByPk(context.req.session.userId)
 }
