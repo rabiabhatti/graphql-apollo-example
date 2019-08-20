@@ -14,9 +14,7 @@ var _resolvers = _interopRequireDefault(require("./resolvers"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_models.sequelize.sync({
-  force: true
-}).catch(console.error);
+_models.sequelize.sync().catch(console.error);
 
 const context = req => ({
   req: req.request

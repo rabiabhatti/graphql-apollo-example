@@ -40,6 +40,5 @@ export default function(sequelize, DataTypes) {
     User.associate = function(models) {
         User.Posts = User.hasMany(models.Post)
     }
-
     return User
 }

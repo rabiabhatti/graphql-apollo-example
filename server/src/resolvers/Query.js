@@ -1,10 +1,9 @@
 import models from '../models'
 
 export default {
-    async viewer() {
+    async viewer(parent, args, context) {
         // TOOD: Replace with session cookie usage.
-        const user = await models.User.findByPk(1)
-
-        return user
+        console.log(context.req.session)
+        return await models.User.findByPk(1)
     }
 }

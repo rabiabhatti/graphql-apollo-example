@@ -10,10 +10,10 @@ var _models = _interopRequireDefault(require("../models"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = {
-  async viewer() {
+  async viewer(parent, args, context) {
     // TOOD: Replace with session cookie usage.
-    const user = await _models.default.User.findByPk(1);
-    return user;
+    console.log(context.req.session);
+    return await _models.default.User.findByPk(1);
   }
 
 };

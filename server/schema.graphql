@@ -21,3 +21,26 @@ type Post {
     title: String!
     description: String!
 }
+
+input LoginInput {
+    name: String!
+    password: String!
+}
+
+input RegisterInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input CreatePostInput {
+    title: String!
+    description: String!
+}
+
+type Mutation {
+    login(input: LoginInput!): User!
+    register(input: RegisterInput!): User!
+    createPost(input: CreatePostInput!): User!
+}
+

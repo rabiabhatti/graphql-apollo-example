@@ -12,7 +12,6 @@
   "author": "Rabia",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-graphql": "^0.6.6",
     "express-session": "^1.15.6",

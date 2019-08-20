@@ -6,7 +6,7 @@ import { GraphQLServer } from 'graphql-yoga'
 import {sequelize} from './models'
 import resolvers from './resolvers'
 
-sequelize.sync({ force: true }).catch(console.error)
+sequelize.sync().catch(console.error)
 
 const context = (req) => ({
     req: req.request,
