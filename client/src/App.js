@@ -1,25 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ApolloClient, {gql} from 'apollo-boost'
+import { useQuery } from '@apollo/react-hooks'
+import { ApolloProvider } from '@apollo/react-hooks'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:9000/',
+})
+
+function Viewer() {
+  const { loading, error, data } = useQuery(gql`
+    {
+      viewer{
+        name
+        posts {
+          id
+          author {
+            name
+          }
+          title
+          description
+        }
+      }
+    }
+  `);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return data.viewer ? (<div>{data.viewer.name}</div>) : (<div>Not login</div>)
+}
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ApolloProvider client={client}>
+        <Viewer />
+      </ApolloProvider>
   );
 }
 
