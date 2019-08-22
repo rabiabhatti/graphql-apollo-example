@@ -22,13 +22,17 @@ class Login extends React.Component {
         const {email, password} = this.state
         this.props.loginMutation({variables: {input: { email, password }}})
             .then(( res) =>  {
-                if (Object.keys(res.data.login).length) {
+                if (Object.values(res.data.login).length) {
+                    const user = {
+                        id: res.data.login.id,
+                        name: res.data.login.name,
+                        email: res.data.login.email
+                    }
+                    localStorage.setItem('user', JSON.stringify(user) )
                     this.props.history.replace('/posts')
                 }
             })
-            .catch((err) => {
-                this.setState({ error: 'Email or password incorrect' })
-            })
+            .catch(() => this.setState({ error: 'Email or password incorrect' }))
     }
 
     render() {

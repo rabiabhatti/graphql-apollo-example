@@ -1,7 +1,7 @@
 import React from 'react'
 import { gql } from 'apollo-boost'
 import { graphql} from 'react-apollo'
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import '../styles/app.css'
 import Wrapper from './Wrapper'
@@ -25,10 +25,16 @@ class Register extends React.Component {
         this.props.registerMutation({variables: {input: { name, email, password }}})
             .then(( res) =>  {
                 if (Object.keys(res.data.register).length) {
+                    const user = {
+                        id: res.data.register.id,
+                        name: res.data.register.name,
+                        email: res.data.register.email
+                    }
+                    localStorage.setItem('user', JSON.stringify(user))
                     this.props.history.replace('/posts')
                 }
             })
-            .catch((err) => console.error(err))
+            .catch(() => this.setState({ error: 'User with same credentials already exists' }))
     }
 
     render() {
@@ -43,7 +49,7 @@ class Register extends React.Component {
                         <input type="text" name="name" placeholder='Username' className='input' onChange={this.onChange.bind(this)} value={name} />
                         <input type="email" name="email" placeholder='Email' className='input' onChange={this.onChange.bind(this)} value={email} />
                         <input type="password" name="password" placeholder='Password' className='input' onChange={this.onChange.bind(this)} value={password} />
-                        <button className='button-dark auth-btn' disabled={disable} onClick={this.handleRegister}><Link to="/posts">Register</Link></button>
+                        <button className='button-dark auth-btn' disabled={disable} onClick={this.handleRegister}>Register</button>
                     </div>
                 </div>
             </Wrapper>
