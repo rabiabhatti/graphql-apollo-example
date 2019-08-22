@@ -25,16 +25,11 @@ class Register extends React.Component {
         this.props.registerMutation({variables: {input: { name, email, password }}})
             .then(( res) =>  {
                 if (Object.keys(res.data.register).length) {
-                    const user = {
-                        id: res.data.register.id,
-                        name: res.data.register.name,
-                        email: res.data.register.email
-                    }
-                    localStorage.setItem('user', JSON.stringify(user))
+                    localStorage.setItem('token', res.data.register.token)
                     this.props.history.replace('/posts')
                 }
             })
-            .catch(() => this.setState({ error: 'User with same credentials already exists' }))
+            .catch((err) => console.log('err', err) ||this.setState({ error: 'User with same credentials already exists' }))
     }
 
     render() {
@@ -63,6 +58,7 @@ const REGISTER_MUTATION = gql`
             id
             name
             email
+            token
             posts {
                 id 
                 title

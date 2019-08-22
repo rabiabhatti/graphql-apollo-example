@@ -23,12 +23,7 @@ class Login extends React.Component {
         this.props.loginMutation({variables: {input: { email, password }}})
             .then(( res) =>  {
                 if (Object.values(res.data.login).length) {
-                    const user = {
-                        id: res.data.login.id,
-                        name: res.data.login.name,
-                        email: res.data.login.email
-                    }
-                    localStorage.setItem('user', JSON.stringify(user) )
+                    localStorage.setItem('token', res.data.login.token)
                     this.props.history.replace('/posts')
                 }
             })
@@ -60,6 +55,7 @@ const LOGIN_MUTATION = gql`
             id
             name
             email
+            token
             posts {
                 id
                 title

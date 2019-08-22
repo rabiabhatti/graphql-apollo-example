@@ -8,5 +8,6 @@ export default async function login(parent, { input: {email, password} }, contex
         },
     })
     if (!user) throw new Error('Email or password are incorrect')
+    console.log(user)
     return user
 }

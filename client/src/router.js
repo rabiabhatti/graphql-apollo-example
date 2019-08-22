@@ -9,10 +9,10 @@ import AuthHome from './components/AuthHome'
 import Register from './components/Register'
 import CreatePost from "./components/CreatePost";
 
-function PrivateRoute ({component: Component, user}) {
+function PrivateRoute ({component: Component, token}) {
     return (
         <Route
-            render={(props) => user
+            render={(props) => token
                 ? <Component {...props} />
                 : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
         />
@@ -21,16 +21,16 @@ function PrivateRoute ({component: Component, user}) {
 
 
 const Router = () => {
-    const user = JSON.parse(localStorage.getItem('user'))
+    const token = localStorage.getItem('token')
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path='/' component={user ? AuthHome : Home} />
+                <Route exact path='/' component={token ? AuthHome : Home} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
-                <PrivateRoute path="/logout" user={user} component={Logout} />
-                <PrivateRoute path="/posts" user={user} component={Posts} />
-                <PrivateRoute path="/create-post" user={user} component={CreatePost} />
+                <PrivateRoute path="/logout" token={token} component={Logout} />
+                <PrivateRoute path="/posts" token={token} component={Posts} />
+                <PrivateRoute path="/create-post" token={token} component={CreatePost} />
             </Switch>
         </BrowserRouter>
     )

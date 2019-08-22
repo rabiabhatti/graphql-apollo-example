@@ -34,6 +34,10 @@ export default function(sequelize, DataTypes) {
             },
             allowNull: false,
         },
+        token: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        }
     }, {
         timestamps: true,
     })
