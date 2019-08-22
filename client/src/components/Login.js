@@ -1,15 +1,16 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import {gql} from "apollo-boost";
+import { graphql} from 'react-apollo'
+import { withRouter } from "react-router-dom";
 
 import '../styles/app.css'
 import Wrapper from './Wrapper'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     state = {
-        username: '',
+        email: '',
         password: '',
         error: '',
-        isLoading: false
     }
     onChange(e) {
         this.setState({
@@ -17,20 +18,52 @@ export default class Login extends React.Component {
         })
     }
 
+    handleLogin = async (e) => {
+        const {email, password} = this.state
+        this.props.loginMutation({variables: {input: { email, password }}})
+            .then(( res) =>  {
+                if (Object.keys(res.data.login).length) {
+                    this.props.history.replace('/posts')
+                }
+            })
+            .catch((err) => {
+                this.setState({ error: 'Email or password incorrect' })
+            })
+    }
+
     render() {
-        const { error, username, password, isLoading } = this.state
+        const { error, email, password } = this.state
+        const disable = !email || !password
         return (
             <Wrapper>
                 <div className='auth-wrapper'>
                     <h1 className='login-heading'>Login</h1>
-                    <form className='auth-form'>
+                    <div className='auth-form'>
                         {error && <span className='error-msg'>{error}</span>}
-                        <input type="text" name="username" placeholder='Username' className='input' onChange={this.onChange.bind(this)} value={username} />
+                        <input type="email" name="email" placeholder='Email' className='input' onChange={this.onChange.bind(this)} value={email} />
                         <input type="password" name="password" placeholder='Password' className='input' onChange={this.onChange.bind(this)} value={password} />
-                        <button className='button-light auth-btn' disabled={isLoading}><Link to="/posts">Login</Link></button>
-                    </form>
+                        <button className='button-light auth-btn' disabled={disable} onClick={this.handleLogin}>Login</button>
+                    </div>
                 </div>
             </Wrapper>
         )
     }
 }
+
+const LOGIN_MUTATION = gql`
+    mutation LoginMutation($input: LoginInput!) {
+        login(input: $input) {
+            id
+            name
+            email
+            posts {
+                id
+                title
+                description
+            }
+        }
+    }
+`
+
+const LoginWithMutation = graphql(LOGIN_MUTATION, {name: 'loginMutation'})(Login)
+export default withRouter(LoginWithMutation)

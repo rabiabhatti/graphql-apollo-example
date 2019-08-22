@@ -1,12 +1,14 @@
 import React from 'react';
-import ApolloClient, {gql} from 'apollo-boost'
-import { useQuery } from '@apollo/react-hooks'
+import ApolloClient, { gql } from 'apollo-boost'
+// import { useQuery } from '@apollo/react-hooks'
+// // import { InMemoryCache } from 'apollo-cache-inmemory'
 import { ApolloProvider } from '@apollo/react-hooks'
 
 import Router from './router'
 
 const client = new ApolloClient({
   uri: 'http://localhost:9000/',
+ // cache: new InMemoryCache()
 })
 
 // function Viewer() {

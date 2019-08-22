@@ -1,9 +1,9 @@
 import { User } from '../../models'
 
-export default async function login(parent, { input: {name, password} }, context) {
+export default async function login(parent, { input: {email, password} }, context) {
     const user = await User.findOne({
         where: {
-            name,
+            email,
             password,
         },
     })

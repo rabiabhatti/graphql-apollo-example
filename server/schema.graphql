@@ -35,7 +35,7 @@ type Post {
 # Input types
 
 input LoginInput {
-    name: String!
+    email: String!
     password: String!
 }
 

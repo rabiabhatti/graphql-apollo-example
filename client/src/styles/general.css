@@ -56,6 +56,11 @@ label {
 input {
     margin-top: 0.5rem;
 }
+
+button[disabled] {
+    background-color: #00000026;
+}
+
 @media screen and (max-width: 768px) {
     html {
         font-size: 14px !important;
