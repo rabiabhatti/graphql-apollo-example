@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  SyntaxError: /Users/rabiabhatti/dev/experiment/facebook/server/package.json: Unexpected token , in JSON at position 147
+  SyntaxError: /Users/rabiabhatti/dev/experiment/graphql-apollo/server/package.json: Unexpected token , in JSON at position 147
       at JSON.parse (<anonymous>)
       at /usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -23,7 +23,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "facebook",
+    "name": "graphql-apollo",
     "version": "1.0.0",
     "description": "",
     "main": "lib/index.js",

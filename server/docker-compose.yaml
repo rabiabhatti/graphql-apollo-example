@@ -1,8 +1,8 @@
 db:
   image: postgres
   environment:
-    POSTGRES_USER: facebook
-    POSTGRES_DB: facebook
+    POSTGRES_USER: graphql-apollo
+    POSTGRES_DB: graphql-apollo
     POSTGRES_PASSWORD:
   ports:
     - 35433:5432

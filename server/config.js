@@ -4,8 +4,8 @@
 const database = {
   port: 35433,
   host: 'localhost',
-  user: 'facebook',
-  database: 'facebook',
+  user: 'graphql-apollo',
+  database: 'graphql-apollo',
   password: '',
 }
 
