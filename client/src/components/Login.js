@@ -24,7 +24,7 @@ class Login extends React.Component {
             .then(( res) =>  {
                 if (Object.values(res.data.login).length) {
                     localStorage.setItem('token', res.data.login.token)
-                    this.props.history.replace('/posts')
+                    this.props.history.replace('/')
                 }
             })
             .catch(() => this.setState({ error: 'Email or password incorrect' }))

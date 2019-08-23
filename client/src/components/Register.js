@@ -26,7 +26,7 @@ class Register extends React.Component {
             .then(( res) =>  {
                 if (Object.keys(res.data.register).length) {
                     localStorage.setItem('token', res.data.register.token)
-                    this.props.history.replace('/posts')
+                    this.props.history.replace('/')
                 }
             })
             .catch((err) => console.log('err', err) ||this.setState({ error: 'User with same credentials already exists' }))

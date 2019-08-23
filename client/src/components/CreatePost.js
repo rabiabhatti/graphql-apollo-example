@@ -20,9 +20,8 @@ class CreatePost extends React.Component {
     handlePost = async () => {
         const {title, description} = this.state
         this.props.createPostMutation({variables: {input: { title, description }}})
-            .then(( res) =>  {
-                // this.props.history.replace('/posts')
-                console.log('res', res)
+            .then(() =>  {
+                this.props.history.replace('/')
 
             })
             .catch(() => this.setState({ error: 'Something went wrong please try again later' }))

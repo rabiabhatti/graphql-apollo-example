@@ -25,12 +25,18 @@ export default () => {
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error :(</p>
-    console.log(data.viewer)
     return (
         <Wrapper>
             <div className='homeWrapper'>
-                <p>Hello I am posts page</p>
-                <button className='button-dark auth-btn'><Link to="/create-post">Create New</Link></button>
+                {data.viewer.posts.map(post => (
+                    <div key={post.id}>
+                        <p>Title: {post.title}</p>
+                        <p>Description: {post.description}</p>
+                        <p>Author: {post.author.name}</p>
+                    </div>
+                ))}
+                <button className='button-dark'><Link to="/create-post">Create New</Link></button>
+                <button className='button-dark'><Link to="/logout">Logout</Link></button>
             </div>
         </Wrapper>
     )
