@@ -9,6 +9,7 @@ import * as userService from './services/user'
 sequelize.sync().catch(console.error)
 
 async function getContext({request}) {
+    console.log(request.headers)
     const authToken = request.headers['x-auth-token']
     const user = authToken ? await userService.getByAuthToken(authToken) : null
     return {user}

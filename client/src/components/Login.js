@@ -18,7 +18,7 @@ class Login extends React.Component {
         })
     }
 
-    handleLogin = async (e) => {
+    handleLogin = async () => {
         const {email, password} = this.state
         this.props.loginMutation({variables: {input: { email, password }}})
             .then(( res) =>  {

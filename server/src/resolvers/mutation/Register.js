@@ -5,7 +5,6 @@ export default async function register(parent, { input: {name, email, password }
     const token = (length) => (
         rand()+rand()+rand()+rand()).substr(0,length
     )
-    console.log('token', token(40))
     return await User.create({
         name,
         email,
