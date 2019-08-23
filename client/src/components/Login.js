@@ -23,6 +23,7 @@ class Login extends React.Component {
         this.props.loginMutation({variables: {input: { email, password }}})
             .then(( res) =>  {
                 if (Object.values(res.data.login).length) {
+                    // TODO: Use redux instead
                     localStorage.setItem('token', res.data.login.token)
                     this.props.history.replace('/')
                 }

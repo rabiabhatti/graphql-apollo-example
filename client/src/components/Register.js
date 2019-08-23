@@ -25,6 +25,7 @@ class Register extends React.Component {
         this.props.registerMutation({variables: {input: { name, email, password }}})
             .then(( res) =>  {
                 if (Object.keys(res.data.register).length) {
+                    // TODO: Use redux instead
                     localStorage.setItem('token', res.data.register.token)
                     this.props.history.replace('/')
                 }

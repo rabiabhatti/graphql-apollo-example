@@ -5,6 +5,7 @@ export default async function register(parent, { input: {name, email, password }
     const token = (length) => (
         rand()+rand()+rand()+rand()).substr(0,length
     )
+    // TODO: Store encrypted password instead
     return await User.create({
         name,
         email,
